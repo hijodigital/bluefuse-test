@@ -10,3 +10,6 @@ ddev start
 ddev composer setup
 ddev launch
 ```
+
+## Confirmation emails
+[Mailpit](https://bluefuse-test.ddev.site:8026)
