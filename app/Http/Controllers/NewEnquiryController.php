@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Confirmation;
 use App\Models\Enquiry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class NewEnquiryController extends Controller
 {
@@ -25,7 +27,9 @@ class NewEnquiryController extends Controller
             'service' => 'required',
             'description' => 'required',
         ]);
-        Enquiry::create($request->all());
+        $enquiry = Enquiry::create($request->all());
+
+        Mail::to($enquiry->email)->send(new Confirmation($enquiry));
 
         return redirect()->route('admin.index')
             ->with('success', 'Enquiry saved');
